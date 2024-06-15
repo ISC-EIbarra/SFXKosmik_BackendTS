@@ -8,9 +8,9 @@
 **Acciones**
 
 ```
-- Creación de cuentas a usuarios
+- Creación de cuentas a usuarios.
 - Recuperación de cuenta.
-- Comprar un curso de maquillaje.
+- Comprar un curso.
 ```
 
 **Tecnologías**
@@ -19,6 +19,7 @@
 - Node JS
 - Express
 - MongoDB
+- TypeScript
 ```
 
 **Dependencias**
