@@ -1,14 +1,13 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { connectDB } from './config/db';
-import courseRoutes from './routes/courseRoutes';
+import classRoutes from '././routes/classRoutes';
 
 dotenv.config();
 connectDB();
 const app = express();
 app.use(express.json());
 
-//Routes
-app.use('/api/courses', courseRoutes);
+app.use('/api/classes', classRoutes);
 
 export default app;
