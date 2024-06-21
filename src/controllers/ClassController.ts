@@ -23,27 +23,21 @@ export class ClassController {
   };
 
   static getClassById = async (req: Request, res: Response) => {
-    const { id } = req.params;
-
     try {
-      const classes = await Class.findById(id);
-      if (!classes) {
-        const error = new Error('Clase no encontrada');
-        res.status(404).json({ error: error.message });
-      }
-      res.json(classes);
+      res.json(req.classes);
     } catch (error) {
       console.log(error);
     }
   };
 
   /*TODO: Change findByIdAndUpdate method */
+  /*TODO: Change to new middleware structure */
 
   static updateClass = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const { classId } = req.params;
 
     try {
-      const classes = await Class.findByIdAndUpdate(id, req.body);
+      const classes = await Class.findByIdAndUpdate(classId, req.body);
       if (!classes) {
         const error = new Error('Clase no encontrada');
         res.status(404).json({ error: error.message });
@@ -56,17 +50,8 @@ export class ClassController {
   };
 
   static deleteClass = async (req: Request, res: Response) => {
-    const { id } = req.params;
-
     try {
-      const classes = await Class.findById(id);
-
-      if (!classes) {
-        const error = new Error('Clase no encontrada');
-        res.status(404).json({ error: error.message });
-      }
-
-      await classes.deleteOne();
+      await req.classes.deleteOne();
       res.json('Clase eliminada');
     } catch (error) {
       console.log(error);

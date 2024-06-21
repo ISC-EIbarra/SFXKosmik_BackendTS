@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { body, param } from 'express-validator';
 import { ClassController } from '../controllers/ClassController';
 import { handleInputErrors } from '../middleware/validation';
+import { validateClassExist } from '../middleware/class';
 
 const router = Router();
 
@@ -19,15 +20,17 @@ router.post(
 );
 
 router.get(
-  '/:id',
-  param('id').isMongoId().withMessage('ID no válido'),
+  '/:classId',
+  validateClassExist,
+  param('classId').isMongoId().withMessage('ID no válido'),
   handleInputErrors,
   ClassController.getClassById
 );
 
 router.put(
-  '/:id',
-  param('id').isMongoId().withMessage('ID no válido'),
+  '/:classId',
+  validateClassExist,
+  param('classId').isMongoId().withMessage('ID no válido'),
   body('name').notEmpty().withMessage('El nombre de la clase es obligatoria'),
   body('description')
     .notEmpty()
@@ -38,8 +41,9 @@ router.put(
 );
 
 router.delete(
-  '/:id',
-  param('id').isMongoId().withMessage('ID no válido'),
+  '/:classId',
+  validateClassExist,
+  param('classId').isMongoId().withMessage('ID no válido'),
   handleInputErrors,
   ClassController.deleteClass
 );

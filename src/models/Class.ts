@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 const classModality = {
-  PRESENTIAL: 'presential',
+  PRESENTIAL: 'presencial',
   ONLINE: 'online',
 } as const;
 
