@@ -10,11 +10,11 @@ router.get('/', WorkshopController.getAllWorkshops);
 
 router.post(
   '/',
-  body('name').notEmpty().withMessage('El nombre de la clase es obligatoria'),
+  body('name').notEmpty().withMessage('El nombre del taller es obligatoria'),
   body('description')
     .notEmpty()
-    .withMessage('La descripción de la clase es obligatoria'),
-  body('price').notEmpty().withMessage('El precio de la clase es obligatorio'),
+    .withMessage('La descripción del taller es obligatoria'),
+  body('price').notEmpty().withMessage('El precio del taller es obligatorio'),
   handleInputErrors,
   WorkshopController.createWorkshop
 );
@@ -25,11 +25,11 @@ router.get('/:id', handleInputErrors, WorkshopController.getWorkshopById);
 
 router.put(
   '/:id',
-  body('name').notEmpty().withMessage('El nombre de la clase es obligatoria'),
+  body('name').notEmpty().withMessage('El nombre del taller es obligatoria'),
   body('description')
     .notEmpty()
-    .withMessage('La descripción de la clase es obligatoria'),
-  body('price').notEmpty().withMessage('El precio de la clase es obligatorio'),
+    .withMessage('La descripción del taller es obligatoria'),
+  body('price').notEmpty().withMessage('El precio del taller es obligatorio'),
   handleInputErrors,
   WorkshopController.updateWorkshop
 );
