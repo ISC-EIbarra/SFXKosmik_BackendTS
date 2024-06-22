@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { body, param } from 'express-validator';
 import { WorkshopController } from '../controllers/WorkshopController';
 import { handleInputErrors } from '../middleware/validation';
+import { validateWorkshopExist } from '../middleware/workshop';
 
 const router = Router();
 
@@ -18,16 +19,12 @@ router.post(
   WorkshopController.createWorkshop
 );
 
-router.get(
-  '/:id',
-  param('id').isMongoId().withMessage('ID no válido'),
-  handleInputErrors,
-  WorkshopController.getWorkshopById
-);
+router.param('id', validateWorkshopExist);
+
+router.get('/:id', handleInputErrors, WorkshopController.getWorkshopById);
 
 router.put(
   '/:id',
-  param('id').isMongoId().withMessage('ID no válido'),
   body('name').notEmpty().withMessage('El nombre de la clase es obligatoria'),
   body('description')
     .notEmpty()
@@ -37,11 +34,6 @@ router.put(
   WorkshopController.updateWorkshop
 );
 
-router.delete(
-  '/:id',
-  param('id').isMongoId().withMessage('ID no válido'),
-  handleInputErrors,
-  WorkshopController.deleteWorkshop
-);
+router.delete('/:id', handleInputErrors, WorkshopController.deleteWorkshop);
 
 export default router;

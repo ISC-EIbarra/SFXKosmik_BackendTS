@@ -19,18 +19,12 @@ router.post(
   ClassController.createClass
 );
 
-router.get(
-  '/:classId',
-  validateClassExist,
-  param('classId').isMongoId().withMessage('ID no válido'),
-  handleInputErrors,
-  ClassController.getClassById
-);
+router.param('classId', validateClassExist);
+
+router.get('/:classId', handleInputErrors, ClassController.getClassById);
 
 router.put(
   '/:classId',
-  validateClassExist,
-  param('classId').isMongoId().withMessage('ID no válido'),
   body('name').notEmpty().withMessage('El nombre de la clase es obligatoria'),
   body('description')
     .notEmpty()
@@ -40,11 +34,5 @@ router.put(
   ClassController.updateClass
 );
 
-router.delete(
-  '/:classId',
-  validateClassExist,
-  param('classId').isMongoId().withMessage('ID no válido'),
-  handleInputErrors,
-  ClassController.deleteClass
-);
+router.delete('/:classId', handleInputErrors, ClassController.deleteClass);
 export default router;

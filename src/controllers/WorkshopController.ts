@@ -22,32 +22,24 @@ export class WorkshopController {
   };
 
   static getWorkshopById = async (req: Request, res: Response) => {
-    const { id } = req.params;
-
     try {
-      const workshop = await Workshop.findById(id);
-
-      if (!workshop) {
-        const error = new Error('Taller no encontrado');
-        res.status(404).json({ error: error.message });
-      }
-      res.json(workshop);
+      res.json(req.workshop);
     } catch (error) {
       console.log(error);
     }
   };
 
   static updateWorkshop = async (req: Request, res: Response) => {
-    const { id } = req.params;
-
     try {
-      const workshop = await Workshop.findByIdAndUpdate(id, req.body);
+      req.workshop.name = req.body.name;
+      req.workshop.description = req.body.description;
+      req.workshop.price = req.body.price;
+      req.workshop.duration = req.body.duration;
+      req.workshop.startDate = req.body.startDate;
+      req.workshop.endDate = req.body.endDate;
+      req.workshop.modality = req.body.modality;
 
-      if (!workshop) {
-        const error = new Error('Taller no encontrado');
-        res.status(404).json({ error: error.message });
-      }
-      await workshop.save();
+      await req.workshop.save();
       res.json('Taller actualizado');
     } catch (error) {
       console.log(error);
@@ -55,16 +47,8 @@ export class WorkshopController {
   };
 
   static deleteWorkshop = async (req: Request, res: Response) => {
-    const { id } = req.params;
-
     try {
-      const workshop = await Workshop.findById(id);
-      if (!workshop) {
-        const error = new Error('Taller no encontrado');
-        res.status(404).json({ error: error.message });
-      }
-
-      await workshop.deleteOne();
+      await req.workshop.deleteOne();
       res.json('Taller eliminado');
     } catch (error) {
       console.log(error);

@@ -30,19 +30,17 @@ export class ClassController {
     }
   };
 
-  /*TODO: Change findByIdAndUpdate method */
-  /*TODO: Change to new middleware structure */
-
   static updateClass = async (req: Request, res: Response) => {
-    const { classId } = req.params;
-
     try {
-      const classes = await Class.findByIdAndUpdate(classId, req.body);
-      if (!classes) {
-        const error = new Error('Clase no encontrada');
-        res.status(404).json({ error: error.message });
-      }
-      await classes.save();
+      req.classes.name = req.body.name;
+      req.classes.description = req.body.description;
+      req.classes.price = req.body.price;
+      req.classes.duration = req.body.duration;
+      req.classes.startDate = req.body.startDate;
+      req.classes.endDate = req.body.endDate;
+      req.classes.modality = req.body.modality;
+
+      await req.classes.save();
       res.json('Clase actualizada');
     } catch (error) {
       console.log(error);
